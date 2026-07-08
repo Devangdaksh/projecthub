@@ -1,209 +1,484 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Projects Hub</title>
-
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
-<style>
-    body {
-        margin: 0;
-        font-family: 'Segoe UI', sans-serif;
-        background: linear-gradient(135deg, #0f172a, #1e293b);
-        color: #fff;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Devang | Projects</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --bg: #07111f;
+      --panel: rgba(10, 20, 36, 0.78);
+      --border: rgba(255, 255, 255, 0.12);
+      --text: #eef4ff;
+      --muted: #9fb1cc;
+      --accent: #7ee0c3;
+      --accent-2: #8ab4ff;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+      --radius: 24px;
     }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(126, 224, 195, 0.18), transparent 28%),
+        radial-gradient(circle at top right, rgba(138, 180, 255, 0.16), transparent 32%),
+        linear-gradient(160deg, var(--bg) 0%, #0b1b2f 45%, var(--bg) 100%);
+      background-attachment: fixed;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent 80%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
 
     header {
-        text-align: center;
-        padding: 30px;
-        font-size: 28px;
-        font-weight: bold;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: rgba(7, 17, 31, 0.75);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
 
-    .container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 25px;
-        padding: 30px;
+    .navbar {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
     }
 
-    @media (max-width: 600px) {
-        header {
-            font-size: 22px;
-        }
+    .nav-logo {
+      font-size: 1.08rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
     }
 
-    .card {
-        background: #1e293b;
-        border-radius: 15px;
-        overflow: hidden;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    .nav-logo span {
+      color: var(--accent);
     }
 
-    .card:hover {
-        transform: translateY(-8px) scale(1.03);
-        box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
     }
 
-    .card img {
-        width: 100%;
-        height: 150px;
-        object-fit: cover;
+    .nav-links a {
+      color: var(--muted);
+      padding: 10px 14px;
+      border-radius: 999px;
+      transition: all 0.2s ease;
     }
 
-    .card-content {
-        padding: 15px;
-        text-align: center;
+    .nav-links a:hover {
+      color: var(--text);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
     }
 
-    .card-content h3 {
-        margin: 10px 0;
+    .hero {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 56px 24px 28px;
+      text-align: center;
     }
 
-    .card-content a {
-        display: inline-block;
-        margin-top: 10px;
-        padding: 10px 18px;
-        background: linear-gradient(45deg, #38bdf8, #0ea5e9);
-        color: #000;
-        border-radius: 8px;
-        text-decoration: none;
-        font-weight: bold;
-        transition: 0.3s;
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin: 0 0 12px;
+      letter-spacing: -0.02em;
     }
 
-    .card-content a:hover {
-        background: linear-gradient(45deg, #0ea5e9, #22c55e);
+    .hero p {
+      color: var(--muted);
+      max-width: 680px;
+      margin: 0 auto;
+      line-height: 1.7;
     }
 
-    .icon {
-        margin-right: 8px;
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
     }
 
-    .social-icons svg {
-        width: 18px;
-        height: 18px;
-        stroke-width: 2;
+    .hero-actions a {
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #04101c;
     }
 
-    .social-icon {
-        margin: 0 8px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 6px;
-        border-radius: 50%;
-        transition: 0.3s;
+    .hero-actions .outline {
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      border: 1px solid var(--border);
     }
 
-    .social-icon:hover {
-        background: #38bdf8;
-        color: #000;
+    .project-section {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 24px 16px;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .section-heading h2 {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+
+    .section-heading span {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      border-radius: 999px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .project-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 28px 70px rgba(0,0,0,0.35);
+    }
+
+    .project-image {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      background: linear-gradient(135deg, rgba(126,224,195,0.16), rgba(138,180,255,0.14));
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 16px;
+    }
+
+    .project-image .icon-box {
+      width: 92px;
+      height: 92px;
+      border-radius: 24px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,0.08);
+      color: var(--accent);
+      font-size: 2rem;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .project-content {
+      padding: 18px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .project-content h3 {
+      margin: 0;
+      font-size: 1.08rem;
+    }
+
+    .project-content p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .project-tags span {
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      background: rgba(255,255,255,0.06);
+      color: var(--muted);
+    }
+
+    .project-buttons {
+      margin-top: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-top: 6px;
+    }
+
+    .project-buttons a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      transition: transform 0.2s ease;
+    }
+
+    .project-buttons a:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #04101c;
+    }
+
+    .btn-outline {
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .project-link {
+      margin-top: 6px;
+      width: fit-content;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #04101c;
+    }
+
+    .contact-section {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 36px 24px 56px;
+    }
+
+    .contact-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-card h2 {
+      margin: 0 0 8px;
+      font-size: 1.4rem;
+    }
+
+    .contact-card p {
+      margin: 0 0 16px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 10px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .contact-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+    }
+
+    .contact-list i {
+      color: var(--accent);
     }
 
     footer {
-        text-align: center;
-        padding: 15px;
-        background: #1e293b;
-        font-size: 14px;
+      text-align: center;
+      padding: 0 24px 34px;
+      color: var(--muted);
+      font-size: 0.95rem;
     }
 
-
-</style>
+    @media (max-width: 700px) {
+      .navbar { flex-direction: column; align-items: flex-start; }
+      .hero { padding-top: 40px; }
+      .section-heading { flex-direction: column; align-items: flex-start; }
+      .section-heading span { width: 100%; }
+    }
+  </style>
 </head>
-
 <body>
+  <header>
+    <nav class="navbar">
+      <div class="nav-logo">Devang<span>.</span></div>
+      <div class="nav-links">
+        <a href="#data-projects">Data Analyst</a>
+        <a href="#web-projects">Web Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
 
-<header>
-    🚀 My GitHub Projects Hub
-</header>
+  <section class="hero">
+    <h1>Projects for Data Analysis and Web Development</h1>
+    <p>I build data-driven stories and practical web apps, combining analytics, visuals, and clean user experiences.</p>
+    <div class="hero-actions">
+      <a href="#data-projects">Explore Data Projects</a>
+      <a class="outline" href="#web-projects">Explore Web Projects</a>
+    </div>
+  </section>
 
-<div class="container">
-
-    <!-- QR Code Generator -->
-    <div class="card">
-        <img src="image/qr.png" alt="QR Generator">
-        <div class="card-content">
-            <h3><i class="fa-solid fa-qrcode icon"></i>QR & Barcode Generator</h3>
-            <a href="https://devangdaksh.github.io/QBar/" target="_blank">
-                Visit Site
-            </a>
+  <section id="data-projects" class="project-section">
+    <div class="section-heading">
+      <h2>Data Analyst Projects</h2>
+      <span></span>
+    </div>
+    <div class="projects-grid">
+      <article class="project-card">
+        <div class="project-image">
+          <img src="image/story_explorer.png" alt="Tamil Nadu Assembly 2026" />
         </div>
-    </div>
-
-    <!-- Weather -->
-    <div class="card">
-        <img src="image/weath.png" alt="Weather">
-        <div class="card-content">
-            <h3><i class="fa-solid fa-cloud-sun icon"></i>Weather App</h3>
-            <a href="https://devangdaksh.github.io/weather/" target="_blank">
-                Visit Site
-            </a>
+        <div class="project-content">
+          <h3>Tamil Nadu Assembly 2026</h3>
+          <p>A storytelling-focused data analysis project exploring political narratives and public trends.</p>
+          <div class="project-tags">
+            <span>Power BI</span>
+            <span>Storytelling</span>
+            <span>Insights</span>
+          </div>
+          <div class="project-buttons">
+            <a class="btn-primary" href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
+            <a class="btn-outline" href="#"><i class="fab fa-github"></i> GitHub</a>
+          </div>
         </div>
-    </div>
+      </article>
 
-    <!-- Clock -->
-    <div class="card">
-        <img src="image/clock.png" alt="Clock">
-        <div class="card-content">
-            <h3><i class="fa-solid fa-clock icon"></i>Clock App</h3>
-            <a href="https://devangdaksh.github.io/clocky/" target="_blank">
-                Visit Site
-            </a>
+      <article class="project-card">
+        <div class="project-image">
+          <img src="image/sales_dashboard.png" alt="Sales Trend Analysis" />
         </div>
-    </div>
-
-    <!-- YouTube Downloader -->
-    <div class="card">
-        <img src="image/youtube.png" alt="YouTube Downloader">
-        <div class="card-content">
-            <h3><i class="fa-brands fa-youtube icon"></i>YouTube Downloader <span style="color: orange;">(Coming Soon)</span></h3>
-            <p>A downloader UI in progress.</p>
-            <a href="https://devangdaksh.github.io/youtube-video-downloader" target="_blank">
-                Visit Site
-            </a>
+        <div class="project-content">
+          <h3>Sales Trend Analysis</h3>
+          <p>A time-based performance study focused on sales movement, seasonality, and business patterns.</p>
+          <div class="project-tags">
+            <span>Excel</span>
+            <span>Analytics</span>
+            <span>Dashboard</span>
+            <span>Power BI</span>
+          </div>
+          <div class="project-buttons">
+            <a class="btn-primary" href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
+            <a class="btn-outline" href="#"><i class="fab fa-github"></i> GitHub</a>
+          </div>
         </div>
+      </article>
     </div>
+  </section>
 
-</div>
-
-<footer class="footer">
-    <p>&copy; 2026 Devang | All Projects in One Place</p>
-    <p>Created by Devang</p>
-    <p>Contact: <a href="mailto:devangworkid@gmail.com">mail</a></p>
-
-    <p>Follow us on social media for updates and tips:</p>
-
-    <div class="social-icons">
-        <a href="https://www.linkedin.com/in/devang-Singh-41642a366" class="social-icon" target="_blank" rel="noopener">
-            <span class="tooltip">LinkedIn</span>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-linkedin">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                <line x1="8" y1="11" x2="8" y2="16"></line>
-                <line x1="8" y1="8" x2="8" y2="8"></line>
-                <line x1="12" y1="16" x2="12" y2="11"></line>
-                <path d="M16 16v-3a2 2 0 0 0-4 0"></path>
-            </svg>
-        </a>
-        <a href="https://www.youtube.com/@script_dev-e3i" class="social-icon" target="_blank" rel="noopener">
-            <span class="tooltip">YouTube</span>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-youtube">
-                <rect x="2" y="4" width="20" height="16" rx="4" ry="4"></rect>
-                <polygon points="10 9 16 12 10 15 10 9"></polygon>
-            </svg>
-        </a>
-        <a href="https://github.com/Devangdaksh" class="social-icon" target="_blank" rel="noopener">
-            <span class="tooltip">GitHub</span>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github">
-                <path d="M12 2C6.13 2 2 6.13 2 12c0 4.42 2.87 8.17 6.84 9.5.5.09.66-.22.66-.48 0-.24-.01-.87-.01-1.7-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.1-1.47-1.1-1.47-.9-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 6.8c.85.004 1.71.115 2.51.337 1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.85-2.34 4.7-4.57 4.95.36.31.68.92.68 1.85 0 1.33-.01 2.41-.01 2.74 0 .27.16.58.67.48A10.01 10.01 0 0 0 22 12c0-5.87-4.73-10-10-10z"/>
-            </svg>
-        </a>
+  <section id="web-projects" class="project-section">
+    <div class="section-heading">
+      <h2>Web Projects</h2>
+      <span></span>
     </div>
-</footer>
+    <div class="projects-grid">
+      <article class="project-card">
+        <div class="project-image">
+          <img src="image/qr.png" alt="QR and barcode generator" />
+        </div>
+        <div class="project-content">
+          <h3>QR & Barcode Generator</h3>
+          <p>Create QR codes and barcodes quickly with a clean, modern interface.</p>
+          <a class="project-link" href="https://devangdaksh.github.io/QBar/" target="_blank" rel="noopener">Visit Site</a>
+        </div>
+      </article>
 
+      <article class="project-card">
+        <div class="project-image">
+          <img src="image/weath.png" alt="Weather app" />
+        </div>
+        <div class="project-content">
+          <h3>Weather App</h3>
+          <p>Check real-time weather updates in a minimal and easy-to-read layout.</p>
+          <a class="project-link" href="https://devangdaksh.github.io/weather/" target="_blank" rel="noopener">Visit Site</a>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="project-image">
+          <img src="image/clock.png" alt="Clock app" />
+        </div>
+        <div class="project-content">
+          <h3>Clock App</h3>
+          <p>A simple yet stylish clock experience built for a smooth visual feel.</p>
+          <a class="project-link" href="https://devangdaksh.github.io/clocky/" target="_blank" rel="noopener">Visit Site</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-section">
+    <div class="contact-card">
+      <h2>Contact</h2>
+      <p>Let’s discuss a project, collaboration, or a new data-focused idea.</p>
+      <ul class="contact-list">
+        <li><i class="fa-solid fa-envelope"></i><a href="mailto:devangworkid@gmail.com">devangworkid@gmail.com</a></li>
+        <li><i class="fa-solid fa-phone"></i><a href="tel:+917579620475">+91 7579620475</a></li>
+        <li><i class="fa-brands fa-linkedin"></i><a href="https://www.linkedin.com/in/devang-Singh-41642a366" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Devang | Projects in one place</p>
+  </footer>
 </body>
 </html>
 

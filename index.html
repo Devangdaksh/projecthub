@@ -8,7 +8,6 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
       :root {
         --bg: #07111f;
@@ -406,7 +405,6 @@
           <a href="#data-projects">Data Analyst</a>
           <a href="#web-projects">Web Projects</a>
           <a href="#contact">Contact</a>
-          <a href="admin-login.html" title="Admin-login"><i class="fa-solid fa-lock"></i></a>
         </div>
       </nav>
     </header>
@@ -428,8 +426,64 @@
         <h2>Data Analyst Projects</h2>
         <span></span>
       </div>
-      <div class="projects-grid" id="data-projects-grid">
-        <p style="color: var(--muted)">Loading projects…</p>
+      <div class="projects-grid">
+        <article class="project-card">
+          <div class="project-image">
+            <img
+              src="image/story_explorer.png"
+              alt="Tamil Nadu Assembly 2026"
+            />
+          </div>
+          <div class="project-content">
+            <h3>Tamil Nadu Assembly 2026</h3>
+            <p>
+              A storytelling-focused data analysis project exploring political
+              narratives and public trends.
+            </p>
+            <div class="project-tags">
+              <span>Power BI</span>
+              <span>Storytelling</span>
+              <span>Insights</span>
+            </div>
+            <div class="project-buttons">
+              <a class="btn-primary" href="#"
+                ><i class="fa-solid fa-arrow-up-right-from-square"></i> Live
+                Demo</a
+              >
+              <a class="btn-outline" href="#"
+                ><i class="fab fa-github"></i> GitHub</a
+              >
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-image">
+            <img src="image/sales_dashboard.png" alt="Sales Trend Analysis" />
+          </div>
+          <div class="project-content">
+            <h3>Sales Trend Analysis</h3>
+            <p>
+              A time-based performance study focused on sales movement,
+              seasonality, and business patterns.
+            </p>
+            <div class="project-tags">
+              <span>Excel</span>
+              <span>Analytics</span>
+              <span>Dashboard</span>
+              <span>Power BI</span>
+            </div>
+            <div class="project-buttons">
+              <a class="btn-primary" href="#"
+                ><i class="fa-solid fa-arrow-up-right-from-square"></i> Live
+                Demo</a
+              >
+              <a class="btn-outline" href="#"
+                ><i class="fab fa-github"></i> GitHub</a
+              >
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -438,8 +492,66 @@
         <h2>Web Projects</h2>
         <span></span>
       </div>
-      <div class="projects-grid" id="web-projects-grid">
-        <p style="color: var(--muted)">Loading projects…</p>
+      <div class="projects-grid">
+        <article class="project-card">
+          <div class="project-image">
+            <img src="image/qr.png" alt="QR and barcode generator" />
+          </div>
+          <div class="project-content">
+            <h3>QR & Barcode Generator</h3>
+            <p>
+              Create QR codes and barcodes quickly with a clean, modern
+              interface.
+            </p>
+            <a
+              class="project-link"
+              href="https://devangdaksh.github.io/QBar/"
+              target="_blank"
+              rel="noopener"
+              >Visit Site</a
+            >
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-image">
+            <img src="image/weath.png" alt="Weather app" />
+          </div>
+          <div class="project-content">
+            <h3>Weather App</h3>
+            <p>
+              Check real-time weather updates in a minimal and easy-to-read
+              layout.
+            </p>
+            <a
+              class="project-link"
+              href="https://devangdaksh.github.io/weather/"
+              target="_blank"
+              rel="noopener"
+              >Visit Site</a
+            >
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-image">
+            <img src="image/clock.png" alt="Clock app" />
+          </div>
+          <div class="project-content">
+            <h3>Clock App</h3>
+            <p>
+              A simple yet stylish clock experience built for a smooth visual
+              feel.
+            </p>
+            <a
+              class="project-link"
+              href="https://devangdaksh.github.io/clocky/"
+              target="_blank"
+              rel="noopener"
+              >Visit Site</a
+            >
+          </div>
+        </article>
       </div>
     </section>
 
@@ -474,84 +586,5 @@
     <footer>
       <p>© 2026 Devang | Projects in one place</p>
     </footer>
-
-    <script>
-      const SUPABASE_URL = "https://mozpazuzxergykwxihuw.supabase.co";
-      const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1venBhenV6eGVyZ3lrd3hpaHV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5NzM3NjMsImV4cCI6MjEwMDU0OTc2M30.Rzsluq00fo_BjgT0-nO1ugjWZw2pqsohxJsCfC7zvDo";
-      // -----------------------------------------------------------
-
-      const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-      function escapeHtml(str) {
-        return (str || "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-      }
-
-      function dataProjectCard(p) {
-        const demo = p.demo_url && p.demo_url !== "#" ? p.demo_url : `project.html?slug=${encodeURIComponent(p.slug)}`;
-        return `
-          <article class="project-card">
-            <div class="project-image">
-              ${p.image_url ? `<img src="${escapeHtml(p.image_url)}" alt="${escapeHtml(p.title)}" />` : `<div class="icon-box"><i class="fa-solid fa-chart-line"></i></div>`}
-            </div>
-            <div class="project-content">
-              <h3>${escapeHtml(p.title)}</h3>
-              <p>${escapeHtml(p.description)}</p>
-              <div class="project-tags">
-                ${(p.tags || []).map((t) => `<span>${escapeHtml(t)}</span>`).join("")}
-              </div>
-              <div class="project-buttons">
-                <a class="btn-primary" href="${escapeHtml(demo)}" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
-                ${p.github_url && p.github_url !== "#" ? `<a class="btn-outline" href="${escapeHtml(p.github_url)}" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>` : ""}
-              </div>
-            </div>
-          </article>
-        `;
-      }
-
-      function webProjectCard(p) {
-        const link = p.live_url || `project.html?slug=${encodeURIComponent(p.slug)}`;
-        return `
-          <article class="project-card">
-            <div class="project-image">
-              ${p.image_url ? `<img src="${escapeHtml(p.image_url)}" alt="${escapeHtml(p.title)}" />` : `<div class="icon-box"><i class="fa-solid fa-code"></i></div>`}
-            </div>
-            <div class="project-content">
-              <h3>${escapeHtml(p.title)}</h3>
-              <p>${escapeHtml(p.description)}</p>
-              <a class="project-link" href="${escapeHtml(link)}" target="_blank" rel="noopener">Visit Site</a>
-            </div>
-          </article>
-        `;
-      }
-
-      async function loadProjects() {
-        const dataGrid = document.getElementById("data-projects-grid");
-        const webGrid = document.getElementById("web-projects-grid");
-
-        const { data, error } = await supabase
-          .from("projects")
-          .select("*")
-          .order("sort_order", { ascending: true });
-
-        if (error) {
-          dataGrid.innerHTML = `<p style="color: var(--muted)">Couldn't load projects right now.</p>`;
-          webGrid.innerHTML = "";
-          return;
-        }
-
-        const dataProjects = data.filter((p) => p.category === "data");
-        const webProjects = data.filter((p) => p.category === "web");
-
-        dataGrid.innerHTML = dataProjects.length
-          ? dataProjects.map(dataProjectCard).join("")
-          : `<p style="color: var(--muted)">No data projects yet.</p>`;
-
-        webGrid.innerHTML = webProjects.length
-          ? webProjects.map(webProjectCard).join("")
-          : `<p style="color: var(--muted)">No web projects yet.</p>`;
-      }
-
-      loadProjects();
-    </script>
   </body>
 </html>
